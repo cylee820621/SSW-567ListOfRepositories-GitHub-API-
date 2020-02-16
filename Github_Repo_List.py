@@ -2,7 +2,6 @@
 #https://api.github.com/users/<ID>/repos
 """
 author: Chih-Yu Lee
-
 output example:
 Repo: Triangle567 Number of commits: 10
 Repo: Square567 Number of commits: 27
