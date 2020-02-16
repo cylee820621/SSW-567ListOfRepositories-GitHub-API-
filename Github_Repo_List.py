@@ -23,5 +23,8 @@ def get_repo_commits_number(userID,repo_name):
 
 list_repo = get_repo_list(response)
 list_repo_commits_number = [get_repo_commits_number(userID,repo) for repo in list_repo]
+
+list_output = ["Repo: {} Number of commits: {}".format(name, commits) for name, commits in zip(list_repo,list_repo_commits_number)]
 print(list_repo)
 print(list_repo_commits_number)
+print(list_output)
