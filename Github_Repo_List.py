@@ -13,7 +13,7 @@ import json
 def get_Github_API(userID):
     response = requests.get("https://api.github.com/users/{}/repos".format(userID))
     response = response.json()
-    if response["message"] == "API rate limit exceeded for 173.230.67.55. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)":
+    if response["message"].startswith("API rate limit exceeded"):
         print("API rate limit exceeded")
         return None
     return response
