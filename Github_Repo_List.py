@@ -12,19 +12,23 @@ import json
 def get_Github_API(userID):
     response = requests.get("https://api.github.com/users/{}/repos".format(userID))
     response = response.json()
-    if response["message"].startswith("API rate limit exceeded"):
-        print("API rate limit exceeded")
-        return None
+    if 'message' in response:
+        if response["message"].startswith("API rate limit exceeded"):
+            print("API rate limit exceeded")
+            return None
     return response
 
 def get_repo_list(github_api_response):
     repo_list = [repo['name'] for repo in github_api_response]
     return repo_list
 
-def get_repo_commits_number(userID,repo_name):
-    number = requests.get("https://api.github.com/repos/{}/{}/commits".format(userID,repo_name))
-    number = len((number.json()))
-    return number
+def get_repo_commits_number(userID,list_repo):
+    list_commits = []
+    for repo in list_repo:
+        number = requests.get("https://api.github.com/repos/{}/{}/commits".format(userID,repo))
+        number = len((number.json()))
+        list_commits.append(number)
+    return list_commits
 
 def get_output_list(list_repo,list_repo_commits_number):
     list_output = ["Repo: {} Number of commits: {}".format(name, commits) for name, commits in zip(list_repo,list_repo_commits_number)]
@@ -35,6 +39,6 @@ if __name__ == "__main__":
     response = get_Github_API(userID)
     if response:
         list_repo = get_repo_list(response)
-        list_repo_commits_number = [get_repo_commits_number(userID,repo) for repo in list_repo]
+        list_repo_commits_number = get_repo_commits_number(userID,list_repo)
         list_output = get_output_list(list_repo,list_repo_commits_number)    
         print(list_output)
