@@ -13,9 +13,15 @@ def get_Github_API(userID):
     response = requests.get("https://api.github.com/users/{}/repos".format(userID))
     response = response.json()
     if 'message' in response:
+        
         if response["message"].startswith("API rate limit exceeded"):
             print("API rate limit exceeded")
             return None
+            
+        if response["message"].startswith("Not Found"):
+            print("Not Found")
+            return None
+
     return response
 
 def get_repo_list(github_api_response):
