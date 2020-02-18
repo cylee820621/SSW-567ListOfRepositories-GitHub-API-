@@ -8,7 +8,7 @@ class TestGithub_Repo_list(unittest.TestCase):
         userID = 'cylee820621'
         response = requests.get("https://api.github.com/users/{}/repos".format(userID))
         response = response.json()
-        if not response["message"].startswith("API rate limit exceeded"):    
+        if not "message" in response or not response["message"].startswith("API rate limit exceeded"):    
             self.assertEqual(get_Github_API('cylee820621'), response)
             self.assertEqual(get_Github_API('users'), None)
         else:
@@ -18,7 +18,8 @@ class TestGithub_Repo_list(unittest.TestCase):
         userID = 'cylee820621'
         response = requests.get("https://api.github.com/users/{}/repos".format(userID))
         response = response.json()
-        if not response["message"].startswith("API rate limit exceeded"):
+        print(response)
+        if not "message" in response or not response["message"].startswith("API rate limit exceeded"):
             list1 = get_repo_list(response)
             self.assertEqual(get_repo_list(response),list1)
 
@@ -26,7 +27,7 @@ class TestGithub_Repo_list(unittest.TestCase):
         userID = 'cylee820621'
         response = requests.get("https://api.github.com/users/{}/repos".format(userID))
         response = response.json()
-        if not response["message"].startswith("API rate limit exceeded"):
+        if not "message" in response or not response["message"].startswith("API rate limit exceeded"):
             list1 = get_repo_list(response)
             list2 = get_repo_commits_number(userID,list1)
             self.assertEqual(get_repo_commits_number(userID,list1),list2)
@@ -35,7 +36,7 @@ class TestGithub_Repo_list(unittest.TestCase):
         userID = 'cylee820621'
         response = requests.get("https://api.github.com/users/{}/repos".format(userID))
         response = response.json()
-        if not response["message"].startswith("API rate limit exceeded"):
+        if not "message" in response or not response["message"].startswith("API rate limit exceeded"):
             list1 = get_repo_list(response)
             list2 = get_repo_commits_number(userID,list1)
             list3 = get_output_list(list1,list2)
