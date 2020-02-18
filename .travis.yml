@@ -4,4 +4,4 @@ python:
 
 # command to run tests
 script:
- - python3 <unittest test_github_repo_list>
+ - python3 <unittest test_github_repo_list.py>
