@@ -2,6 +2,8 @@ language: python
 python:
  - "3.7"
 
+install:
+  - pip3 install requests
 # command to run tests
 script:
  - python3 test_github_repo_list.py
