@@ -29,7 +29,20 @@ class Testgithubapi(unittest.TestCase):
                       'Univerity',
                       'Xcodetesting']
         self.assertEqual(response, repo_list)
-
+    
+    @patch('Github_Repo_List.get_repo_list')
+    def get_repo_commits_number(self,mock_list_repo):
+        repo_list = ['SSW-533-project',
+                    'SSW-567',
+                    'SSW-567HW02a-Triangle',
+                    'SSW-567ListOfRepositories-GitHub-API-',
+                    'SSW690Project',
+                    'Univerity',
+                    'Xcodetesting']
+        mock_list_repo.return_value = repo_list
+        response = get_repo_commits_number("cylee820621",repo_list)
+        commits_number = [22, 30, 6, 18, 22, 14, 3, 2]
+        self.assertEqual(response,commits_number)
 
 if __name__ == '__main__':
     unittest.main()
