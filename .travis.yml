@@ -4,6 +4,8 @@ python:
 
 install:
   - pip3 install requests
+  - pip3 install mock
+  
 # command to run tests
 script:
  - python3 test_mock_github_repo_list.py
