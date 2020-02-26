@@ -12,7 +12,7 @@ class Testgithubapi(unittest.TestCase):
             data = json.load(fopen)
         mock_get.return_value = data
         response = get_Github_API('cylee820621')
-        self.assertEqual(response, data)
+        self.assertEqual(response, mock_get.return_value)
 
     @patch('Github_Repo_List.requests.get')
     def test_get_repo_list(self, mock_get):
