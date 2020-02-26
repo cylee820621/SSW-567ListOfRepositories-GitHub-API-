@@ -11,6 +11,9 @@ import json
 
 def get_Github_API(userID):
     response = requests.get("https://api.github.com/users/{}/repos".format(userID))
+    return response
+
+def determine_api_status(response):
     response = response.json()
     if 'message' in response:
         
@@ -43,8 +46,12 @@ def get_output_list(list_repo,list_repo_commits_number):
 if __name__ == "__main__":
     userID = input("enter a user ID: ")
     response = get_Github_API(userID)
+    response = determine_api_status(response)
     if response:
         list_repo = get_repo_list(response)
         list_repo_commits_number = get_repo_commits_number(userID,list_repo)
-        list_output = get_output_list(list_repo,list_repo_commits_number)    
+        list_output = get_output_list(list_repo,list_repo_commits_number)
         print(list_output)
+        print(list_repo)
+        print(list_repo_commits_number)
+        
